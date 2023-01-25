@@ -1,4 +1,5 @@
 export type CustomFormProps = {
+  key: string;
   label: string;
   id: string;
   name: string;

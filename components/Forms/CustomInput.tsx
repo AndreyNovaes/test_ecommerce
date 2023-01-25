@@ -2,10 +2,10 @@ import {
   FormControl, FormErrorMessage, FormLabel,
   Input, InputGroup, InputLeftElement
 } from "@chakra-ui/react";
-import { CustomFormProps } from "../Types/Form/CustomFormProps";
+import { CustomFormProps } from "../../Types/Forms/CustomFormProps";
 
-export const CustomInput: React.FC<CustomFormProps> = ({ id, label, name, type, value, onChange, leftIcon, isInvalid, formErrorMessage, isLoading }) => (
-  <FormControl>
+export const CustomInput: React.FC<CustomFormProps> = ({ key, id, label, name, type, value, onChange, leftIcon, isInvalid, formErrorMessage, isLoading }) => (
+  <FormControl key={key}>
     <FormLabel htmlFor={id}>{label}</FormLabel>
     <InputGroup>
       <InputLeftElement

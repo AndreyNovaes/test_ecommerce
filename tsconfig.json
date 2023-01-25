@@ -23,7 +23,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "utils/FieldsData.tsx"  ],
+, "utils/Forms/FieldsData.tsx"  ],
   "exclude": [
     "node_modules"
   ]
