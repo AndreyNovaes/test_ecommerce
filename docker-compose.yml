@@ -1,0 +1,36 @@
+version: '3.9'
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - next_app
+  next_app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=postgres://user:password@db:5432/db
+      - REDIS_URL=redis://cache:6379
+    depends_on:
+      - db
+      - cache
+  cache:
+    image: redis:latest
+    volumes:
+      - ./cache:/data
+    ports:
+      - 6379:6379
+  db:
+    image: postgres:latest
+    volumes:
+      - ./db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: db

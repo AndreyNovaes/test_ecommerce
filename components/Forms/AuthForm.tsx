@@ -1,19 +1,42 @@
 import { Button, VStack } from "@chakra-ui/react";
-import { AuthFormProps } from "../../Types/Forms/AuthFormProps";
-import { fieldsData } from "../../utils/Forms/FieldsData";
 import { CustomInput } from "./CustomInput";
+
+type FormField = {
+  label: string;
+  name: string;
+  type: string;
+  icon: JSX.Element;
+  errorMessage: string;
+}
+
+type FormData = {
+  [key: string]: string;
+}
+
+type AuthFormProps = {
+  formType: "login" | "register";
+  handleInputChange: React.ChangeEventHandler<HTMLInputElement>;
+  handleOnClick: React.MouseEventHandler<HTMLButtonElement>;
+  isLoading: boolean;
+  fields: FormField[];
+  formData: FormData;
+  errors: {
+    [key: string]: boolean;
+  };
+}
 
 export const AuthForm: React.FC<AuthFormProps> = ({
   formType,
   handleInputChange,
   handleOnClick,
   isLoading,
+  fields,
+  formData,
   errors,
-  forms,
 }) => {
   return (
     <VStack spacing={4}>
-      {Object.values(fieldsData[formType]).map((field) => (
+      {fields.map((field: FormField) => (
         <CustomInput
           key={field.name}
           label={field.label}
@@ -23,8 +46,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({
           leftIcon={field.icon}
           onChange={handleInputChange}
           isLoading={isLoading}
-          value={ forms[formType][field.name] }
-          isInvalid={errors[formType][field.name]}
+          value={formData[field.name]}
+          isInvalid={errors[field.name]}
           formErrorMessage={field.errorMessage}
         />
       ))}

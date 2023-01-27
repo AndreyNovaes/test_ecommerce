@@ -1,36 +1,28 @@
-type isFieldInvalid = {
-  [key: string]: boolean;
-};
+export type FormField = {
+  label: string;
+  name: string;
+  type: string;
+  icon: JSX.Element;
+}
 
-
-type formValues = {
+type FormValues = {
   [key: string]: string;
-};
+}
 
-export type isAnyFieldInvalid = {
-  [key in "login" | "register"]: isFieldInvalid;
-};
+type FormErrors = {
+  [key: string]: boolean;
+}
 
-export type formValuesType = {
-  [key in "login" | "register"]: formValues;
-};
-
+export type FormData = {
+  values: FormValues;
+  errors: FormErrors;
+}
 
 export type AuthFormProps = {
   formType: "login" | "register";
-  fields: {
-    [key in "login" | "register"]: {
-      [key: string]: {
-        label: string;
-        name: string;
-        type: string;
-        icon: JSX.Element;
-      }
-    }
-  };
+  fields: FormField[];
   handleInputChange: React.ChangeEventHandler<HTMLInputElement>;
   handleOnClick: React.MouseEventHandler<HTMLButtonElement>;
   isLoading: boolean;
-  forms: formValuesType;
-  errors: isAnyFieldInvalid;
-};
+  formData: FormData;
+}
